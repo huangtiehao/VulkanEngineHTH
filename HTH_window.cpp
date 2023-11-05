@@ -1,4 +1,5 @@
 #include "HTH_window.hpp"
+#include <stdexcept>
 
 HTH_window::HTH_window(int w, int h, std::string name) :width(w), height(h), windowName(name)
 {
@@ -9,6 +10,14 @@ HTH_window::~HTH_window()
 {
 	glfwDestroyWindow(window);
 	glfwTerminate();
+}
+
+void HTH_window::createWindowSurface(VkInstance instance, VkSurfaceKHR* surface)
+{
+	if (glfwCreateWindowSurface(instance, window, nullptr, surface) != VK_SUCCESS)
+	{
+		throw std::runtime_error("failed to create window surface!");
+	}
 }
 
 void HTH_window::initWindow()
