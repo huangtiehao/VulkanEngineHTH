@@ -14,9 +14,13 @@ HTH_pipeline::~HTH_pipeline()
 	vkDestroyShaderModule(hth_device.device(), fragShaderModule, nullptr);
 }
 
-PipelineConfigInfo HTH_pipeline::defaultPipelineConfigInfo(uint32_t width, uint32_t height)
+void HTH_pipeline::bind(VkCommandBuffer commandBuffer)
 {
-	PipelineConfigInfo configInfo{};
+	vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline);
+}
+
+void HTH_pipeline::defaultPipelineConfigInfo(PipelineConfigInfo& configInfo,uint32_t width, uint32_t height)
+{
 	configInfo.inputAssemblyInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
 	configInfo.inputAssemblyInfo.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
 	configInfo.inputAssemblyInfo.primitiveRestartEnable = VK_FALSE;
@@ -31,7 +35,11 @@ PipelineConfigInfo HTH_pipeline::defaultPipelineConfigInfo(uint32_t width, uint3
 	configInfo.scissor.offset = { 0, 0 };
 	configInfo.scissor.extent = { width, height };
 
-
+	configInfo.viewportInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
+	configInfo.viewportInfo.viewportCount = 1;
+	configInfo.viewportInfo.pViewports = &configInfo.viewport;
+	configInfo.viewportInfo.scissorCount = 1;
+	configInfo.viewportInfo.pScissors = &configInfo.scissor;
 
 	configInfo.rasterizationInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
 	configInfo.rasterizationInfo.depthClampEnable = VK_FALSE;
@@ -85,7 +93,6 @@ PipelineConfigInfo HTH_pipeline::defaultPipelineConfigInfo(uint32_t width, uint3
 	configInfo.depthStencilInfo.front = {};  // Optional
 	configInfo.depthStencilInfo.back = {};   // Optional
 
-	return configInfo;
 }
 
 std::vector<char> HTH_pipeline::readFile(const std::string& filePath)

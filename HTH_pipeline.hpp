@@ -3,8 +3,11 @@
 #include<vector>
 #include "HTH_device.hpp"
 struct PipelineConfigInfo {
+	PipelineConfigInfo(const PipelineConfigInfo&) = delete; 
+	PipelineConfigInfo& operator=(const PipelineConfigInfo&) = delete;
 	VkViewport viewport;
 	VkRect2D scissor;
+	VkPipelineViewportStateCreateInfo viewportInfo;
 	VkPipelineInputAssemblyStateCreateInfo inputAssemblyInfo;
 	VkPipelineRasterizationStateCreateInfo rasterizationInfo;
 	VkPipelineMultisampleStateCreateInfo multisampleInfo;
@@ -22,7 +25,9 @@ public:
 	~HTH_pipeline();
 	HTH_pipeline(const HTH_pipeline&) = delete;
 	void operator=(const HTH_pipeline&) = delete;
-	static PipelineConfigInfo defaultPipelineConfigInfo(uint32_t width, uint32_t height);
+	void bind(VkCommandBuffer commandBuffer);
+	static void defaultPipelineConfigInfo(
+		PipelineConfigInfo& configInfo, uint32_t width, uint32_t height);
 private:
 	static std::vector<char> readFile(const std::string& filePath);
 	void createShaderModule(const std::vector<char>& code, VkShaderModule* shaderModule);
