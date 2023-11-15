@@ -10,12 +10,13 @@
 
 HTH_swap_chain::HTH_swap_chain(HTH_device &deviceRef, VkExtent2D extent): device{deviceRef}, windowExtent{extent} 
 {
-  createSwapChain();
-  createImageViews();
-  createRenderPass();
-  createDepthResources();
-  createFramebuffers();
-  createSyncObjects();
+    init();
+}
+
+HTH_swap_chain::HTH_swap_chain(HTH_device& deviceRef, VkExtent2D extent, std::shared_ptr<HTH_swap_chain> previous) : device{ deviceRef }, windowExtent{ extent }, oldSwapChain{ previous } 
+{
+        init();
+        oldSwapChain = nullptr;
 }
 
 HTH_swap_chain::~HTH_swap_chain() {
@@ -116,6 +117,16 @@ VkResult HTH_swap_chain::submitCommandBuffers(
   return result;
 }
 
+void HTH_swap_chain::init()
+{
+    createSwapChain();
+    createImageViews();
+    createRenderPass();
+    createDepthResources();
+    createFramebuffers();
+    createSyncObjects();
+}
+
 void HTH_swap_chain::createSwapChain() {
   SwapChainSupportDetails swapChainSupport = device.getSwapChainSupport();
 
@@ -159,7 +170,7 @@ void HTH_swap_chain::createSwapChain() {
   createInfo.presentMode = presentMode;
   createInfo.clipped = VK_TRUE;
 
-  createInfo.oldSwapchain = VK_NULL_HANDLE;
+  createInfo.oldSwapchain = oldSwapChain == nullptr ? VK_NULL_HANDLE : oldSwapChain->swapChain;
 
   if (vkCreateSwapchainKHR(device.device(), &createInfo, nullptr, &swapChain) != VK_SUCCESS) {
     throw std::runtime_error("failed to create swap chain!");
@@ -286,6 +297,7 @@ void HTH_swap_chain::createFramebuffers() {
 
 void HTH_swap_chain::createDepthResources() {
   VkFormat depthFormat = findDepthFormat();
+  swapChainDepthFormat=depthFormat;
   VkExtent2D swapChainExtent = getSwapChainExtent();
 
   depthImages.resize(imageCount());

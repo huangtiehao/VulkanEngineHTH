@@ -76,7 +76,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp14</LanguageStandard>
       <AdditionalIncludeDirectories>C:\VulkanSDK\1.3.261.1\Include;C:\VulkanEnv\glfw-3.3.8.bin.WIN64\include;C:\VulkanEnv\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -94,7 +94,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp14</LanguageStandard>
       <AdditionalIncludeDirectories>C:\VulkanSDK\1.3.261.1\Include;C:\VulkanEnv\glfw-3.3.8.bin.WIN64\include;C:\VulkanEnv\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -112,7 +112,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp14</LanguageStandard>
       <AdditionalIncludeDirectories>C:\VulkanSDK\1.3.261.1\Include;C:\VulkanEnv\glfw-3.3.8.bin.WIN64\include;C:\VulkanEnv\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -130,7 +130,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp14</LanguageStandard>
       <AdditionalIncludeDirectories>C:\VulkanSDK\1.3.261.1\Include;C:\VulkanEnv\glfw-3.3.8.bin.WIN64\include;C:\VulkanEnv\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -144,18 +144,25 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="firstApp.cpp" />
+    <ClCompile Include="HTH_model.cpp" />
     <ClCompile Include="HTH_pipeline.cpp" />
+    <ClCompile Include="HTH_renderer.cpp" />
     <ClCompile Include="HTH_window.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="HTH_device.cpp" />
     <ClCompile Include="HTH_swap_chain.cpp" />
+    <ClCompile Include="simple_render_system.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="firstApp.hpp" />
+    <ClInclude Include="HTH_game_object.hpp" />
+    <ClInclude Include="HTH_model.hpp" />
     <ClInclude Include="HTH_pipeline.hpp" />
+    <ClInclude Include="HTH_renderer.hpp" />
     <ClInclude Include="HTH_window.hpp" />
     <ClInclude Include="HTH_device.hpp" />
     <ClInclude Include="HTH_swap_chain.hpp" />
+    <ClInclude Include="Simple_render_system.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\simple_shader.frag" />

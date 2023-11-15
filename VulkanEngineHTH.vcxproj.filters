@@ -36,6 +36,15 @@
     <ClCompile Include="HTH_swap_chain.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="HTH_model.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HTH_renderer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="simple_render_system.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HTH_window.hpp">
@@ -51,6 +60,18 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="HTH_swap_chain.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HTH_model.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HTH_game_object.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HTH_renderer.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Simple_render_system.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

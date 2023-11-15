@@ -33,9 +33,9 @@ class HTH_device {
 
   // Not copyable or movable
   HTH_device(const HTH_device &) = delete;
-  void operator=(const HTH_device&) = delete;
+  HTH_device& operator=(const HTH_device&) = delete;
   HTH_device(HTH_device&&) = delete;
-  HTH_device&operator=(HTH_device&&) = delete;
+  HTH_device &operator=(HTH_device&&) = delete;
 
   VkCommandPool getCommandPool() { return commandPool; }
   VkDevice device() { return device_; }

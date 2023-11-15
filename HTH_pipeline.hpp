@@ -2,11 +2,12 @@
 #include<string>
 #include<vector>
 #include "HTH_device.hpp"
+#include "HTH_model.hpp"
+
 struct PipelineConfigInfo {
 	PipelineConfigInfo(const PipelineConfigInfo&) = delete; 
 	PipelineConfigInfo& operator=(const PipelineConfigInfo&) = delete;
-	VkViewport viewport;
-	VkRect2D scissor;
+
 	VkPipelineViewportStateCreateInfo viewportInfo;
 	VkPipelineInputAssemblyStateCreateInfo inputAssemblyInfo;
 	VkPipelineRasterizationStateCreateInfo rasterizationInfo;
@@ -14,6 +15,8 @@ struct PipelineConfigInfo {
 	VkPipelineColorBlendAttachmentState colorBlendAttachment;
 	VkPipelineColorBlendStateCreateInfo colorBlendInfo;
 	VkPipelineDepthStencilStateCreateInfo depthStencilInfo;
+	std::vector<VkDynamicState>dynamicStateEnables;
+	VkPipelineDynamicStateCreateInfo dynamicStateInfo;
 	VkPipelineLayout pipelineLayout = nullptr;
 	VkRenderPass renderPass = nullptr;
 	uint32_t subpass = 0;
@@ -24,10 +27,10 @@ public:
 	HTH_pipeline(HTH_device& device,const std::string& vertFilePath, const std::string& fragFilePath,const PipelineConfigInfo& configInfo);
 	~HTH_pipeline();
 	HTH_pipeline(const HTH_pipeline&) = delete;
-	void operator=(const HTH_pipeline&) = delete;
+
+	HTH_pipeline& operator=(const HTH_pipeline&) = delete;
 	void bind(VkCommandBuffer commandBuffer);
-	static void defaultPipelineConfigInfo(
-		PipelineConfigInfo& configInfo, uint32_t width, uint32_t height);
+	static void defaultPipelineConfigInfo(PipelineConfigInfo& configInfo);
 private:
 	static std::vector<char> readFile(const std::string& filePath);
 	void createShaderModule(const std::vector<char>& code, VkShaderModule* shaderModule);
@@ -36,4 +39,10 @@ private:
 	VkPipeline graphicsPipeline;
 	VkShaderModule vertShaderModule;
 	VkShaderModule fragShaderModule;
+	std::vector<HTH_model::Vertex>vertices{
+		{{0.0,-0.5f},{1.0,0.0,0.0}},
+		{{0.5,0.5},{0.0,1.0,0.0}},
+		{{-0.5,0.5},{0.0,0.0,1.0}}
+	};
+	HTH_model hth_model{ hth_device,vertices };
 };

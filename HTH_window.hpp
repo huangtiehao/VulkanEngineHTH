@@ -11,12 +11,16 @@ public:
 	//½ûÖ¹¸³Öµº¯Êý
 	HTH_window &operator=(const HTH_window&) = delete;
 	bool shouldClose() { return glfwWindowShouldClose(window); }
+	bool wasWindowResized() { return frameBufferResized; }
+	void resetWindowResizedFlag() { frameBufferResized = false; }
 	void createWindowSurface(VkInstance instance, VkSurfaceKHR* surface);
 	VkExtent2D getExtent() { return { static_cast<uint32_t>(width),static_cast<uint32_t>(height) }; }
 private:
+	static void frameBufferResizedCallback(GLFWwindow* window, int width, int height);
 	GLFWwindow* window;
-	const int width;
-	const int height;
+	int width;
+	int height;
+	bool frameBufferResized=false;
 	std::string windowName;
 	void initWindow();
 };

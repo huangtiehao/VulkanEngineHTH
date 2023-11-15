@@ -8,17 +8,19 @@
 // std lib headers
 #include <string>
 #include <vector>
-
+#include<memory>
 
 class HTH_swap_chain {
  public:
   static constexpr int MAX_FRAMES_IN_FLIGHT = 2;
 
   HTH_swap_chain(HTH_device &deviceRef, VkExtent2D windowExtent);
+  HTH_swap_chain(
+      HTH_device& deviceRef, VkExtent2D windowExtent, std::shared_ptr<HTH_swap_chain> previous);
   ~HTH_swap_chain();
 
   HTH_swap_chain(const HTH_swap_chain&) = delete;
-  void operator=(const HTH_swap_chain&) = delete;
+  HTH_swap_chain&    operator=(const HTH_swap_chain&) = delete;
 
   VkFramebuffer getFrameBuffer(int index) { return swapChainFramebuffers[index]; }
   VkRenderPass getRenderPass() { return renderPass; }
@@ -37,7 +39,13 @@ class HTH_swap_chain {
   VkResult acquireNextImage(uint32_t *imageIndex);
   VkResult submitCommandBuffers(const VkCommandBuffer *buffers, uint32_t *imageIndex);
 
+  bool compareSwapFormats(const HTH_swap_chain& swapChain)const
+  {
+      return swapChain.swapChainDepthFormat == swapChainDepthFormat && swapChain.swapChainImageFormat == swapChainImageFormat;
+  }
+
  private:
+  void init();
   void createSwapChain();
   void createImageViews();
   void createDepthResources();
@@ -53,6 +61,7 @@ class HTH_swap_chain {
   VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR &capabilities);
 
   VkFormat swapChainImageFormat;
+  VkFormat swapChainDepthFormat;
   VkExtent2D swapChainExtent;
 
   std::vector<VkFramebuffer> swapChainFramebuffers;
@@ -68,6 +77,7 @@ class HTH_swap_chain {
   VkExtent2D windowExtent;
 
   VkSwapchainKHR swapChain;
+  std::shared_ptr<HTH_swap_chain> oldSwapChain;
 
   std::vector<VkSemaphore> imageAvailableSemaphores;
   std::vector<VkSemaphore> renderFinishedSemaphores;
