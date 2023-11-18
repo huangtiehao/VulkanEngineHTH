@@ -14,7 +14,7 @@ public:
 	HTH_renderer& operator=(const HTH_renderer&) = delete;
 
 	VkRenderPass getSwapChainRenderPass()const { return hth_swap_chain->getRenderPass(); }
-
+	float getAspectRatio()const { return hth_swap_chain->extentAspectRatio(); }
 	bool isFrameInProgress()const { return isFrameStarted; }
 
 	VkCommandBuffer getCurrentCommandBuffer()const { 

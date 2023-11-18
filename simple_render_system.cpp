@@ -8,8 +8,7 @@
 
 struct SimplePushConstantData {
 	//µ•Œªæÿ’Û
-	glm::mat2 transform{ 0.f,-1.f,1.f,0.f };
-	glm::vec2 offset;
+	glm::mat4 transform{1.f};
 	alignas(16)glm::vec3 color;
 };
 
@@ -41,16 +40,15 @@ void Simple_render_system::createPipelineLayout()
 		throw std::runtime_error("failed to create pipeline layout!");
 	}
 }
-void Simple_render_system::renderGameObjects(VkCommandBuffer commandBuffer, std::vector<HTH_game_object>& gameObjects)
+void Simple_render_system::renderGameObjects(VkCommandBuffer commandBuffer, std::vector<HTH_game_object>& gameObjects,const HTH_camera& camera)
 {
 	hth_pipeline->bind(commandBuffer);
+	auto projectionView = camera.getProjectionMatrix() * camera.getViewMatrix();
 	for (auto& obj : gameObjects)
 	{
-		obj.transform2d.rotation = glm::mod(obj.transform2d.rotation + 0.0001f, glm::two_pi<float>());
 		SimplePushConstantData push{};
-		push.offset = obj.transform2d.translation;
 		push.color = obj.color;
-		push.transform = obj.transform2d.mat2();
+		push.transform = projectionView*obj.transform.mat4();
 		vkCmdPushConstants(commandBuffer, pipelineLayout, VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(SimplePushConstantData), &push);
 		obj.model->bind(commandBuffer);
 		obj.model->draw(commandBuffer);

@@ -11,10 +11,11 @@ class HTH_model
 
 public:
 	struct Vertex {
-		glm::vec2 position;
+		glm::vec3 position;
 		glm::vec3 color;
 	};
 
+public:
 
 	HTH_model(HTH_device& device, const std::vector<Vertex>vertices);
 	~HTH_model();

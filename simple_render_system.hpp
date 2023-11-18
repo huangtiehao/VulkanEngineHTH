@@ -1,5 +1,6 @@
 #pragma once
 #include "HTH_device.hpp"
+#include "HTH_camera.hpp"
 #include "HTH_pipeline.hpp"
 #include "HTH_model.hpp"
 #include "HTH_game_object.hpp"
@@ -12,7 +13,8 @@ public:
 	~Simple_render_system();
 	Simple_render_system(const Simple_render_system&) = delete;
 	Simple_render_system& operator=(const Simple_render_system&) = delete;
-	void renderGameObjects(VkCommandBuffer commandBuffer,std::vector<HTH_game_object>& gameObjects);
+	void renderGameObjects(VkCommandBuffer commandBuffer,std::vector<HTH_game_object>& gameObjects
+	,const HTH_camera& camera);
 private:
 	void createPipelineLayout();
 	void createPipeline(VkRenderPass renderPass);

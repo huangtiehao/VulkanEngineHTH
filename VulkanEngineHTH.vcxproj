@@ -144,10 +144,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="firstApp.cpp" />
+    <ClCompile Include="HTH_camera.cpp" />
     <ClCompile Include="HTH_model.cpp" />
     <ClCompile Include="HTH_pipeline.cpp" />
     <ClCompile Include="HTH_renderer.cpp" />
     <ClCompile Include="HTH_window.cpp" />
+    <ClCompile Include="Keyboard_movement_controller.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="HTH_device.cpp" />
     <ClCompile Include="HTH_swap_chain.cpp" />
@@ -155,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="firstApp.hpp" />
+    <ClInclude Include="HTH_camera.hpp" />
     <ClInclude Include="HTH_game_object.hpp" />
     <ClInclude Include="HTH_model.hpp" />
     <ClInclude Include="HTH_pipeline.hpp" />
@@ -162,6 +165,7 @@
     <ClInclude Include="HTH_window.hpp" />
     <ClInclude Include="HTH_device.hpp" />
     <ClInclude Include="HTH_swap_chain.hpp" />
+    <ClInclude Include="Keyboard_movement_controller.hpp" />
     <ClInclude Include="Simple_render_system.hpp" />
   </ItemGroup>
   <ItemGroup>

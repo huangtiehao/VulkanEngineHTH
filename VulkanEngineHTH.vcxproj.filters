@@ -45,6 +45,12 @@
     <ClCompile Include="simple_render_system.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="HTH_camera.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Keyboard_movement_controller.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HTH_window.hpp">
@@ -72,6 +78,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Simple_render_system.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HTH_camera.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Keyboard_movement_controller.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

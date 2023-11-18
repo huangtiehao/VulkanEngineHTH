@@ -39,10 +39,4 @@ private:
 	VkPipeline graphicsPipeline;
 	VkShaderModule vertShaderModule;
 	VkShaderModule fragShaderModule;
-	std::vector<HTH_model::Vertex>vertices{
-		{{0.0,-0.5f},{1.0,0.0,0.0}},
-		{{0.5,0.5},{0.0,1.0,0.0}},
-		{{-0.5,0.5},{0.0,0.0,1.0}}
-	};
-	HTH_model hth_model{ hth_device,vertices };
 };

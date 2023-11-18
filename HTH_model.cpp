@@ -1,5 +1,7 @@
 #include "HTH_model.hpp"
 #include <cassert>
+
+
 HTH_model::HTH_model(HTH_device& device,const std::vector<Vertex>vertices) :hth_device{ device }
 {
 	initialDescriptions();
@@ -10,6 +12,8 @@ HTH_model::~HTH_model()
 	vkDestroyBuffer(hth_device.device(), vertexBuffer, nullptr);
 	vkFreeMemory(hth_device.device(), vertexBufferMemory, nullptr);
 }
+
+
 void HTH_model::createVertexBuffers(const std::vector<Vertex>& vertices)
 {
 	vertexCount = static_cast<uint32_t>(vertices.size());
@@ -42,7 +46,7 @@ void HTH_model::initialDescriptions()
 	attributeDescriptions.resize(2);
 	attributeDescriptions[0].binding = 0;
 	attributeDescriptions[0].location = 0;
-	attributeDescriptions[0].format = VK_FORMAT_R32G32_SFLOAT;
+	attributeDescriptions[0].format = VK_FORMAT_R32G32B32_SFLOAT;
 	attributeDescriptions[0].offset = 0;
 	attributeDescriptions[1].binding = 0;
 	attributeDescriptions[1].location = 1;
