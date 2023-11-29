@@ -51,6 +51,18 @@
     <ClCompile Include="Keyboard_movement_controller.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="HTH_game_object.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HTH_buffer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HTH_descriptors.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="point_light_system.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HTH_window.hpp">
@@ -86,12 +98,33 @@
     <ClInclude Include="Keyboard_movement_controller.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="HTH_utils.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HTH_buffer.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HTH_frame_info.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HTH_descriptors.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="point_light_system.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\simple_shader.frag">
       <Filter>资源文件\shaders</Filter>
     </None>
     <None Include="shaders\simple_shader.vert">
+      <Filter>资源文件\shaders</Filter>
+    </None>
+    <None Include="shaders\point_light.frag">
+      <Filter>资源文件\shaders</Filter>
+    </None>
+    <None Include="shaders\point_light.vert">
       <Filter>资源文件\shaders</Filter>
     </None>
   </ItemGroup>

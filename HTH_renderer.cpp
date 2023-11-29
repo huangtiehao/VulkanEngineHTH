@@ -29,7 +29,7 @@ int HTH_renderer::getFrameIndex() const
 
 VkCommandBuffer HTH_renderer::beginFrame()
 {
-	assert(!isFrameStarted && :"can't begin frame while frame is started");
+	assert(!isFrameStarted && "can't begin frame while frame is started");
 	auto result = hth_swap_chain->acquireNextImage(&currentImageIndex);
 	if (result == VK_ERROR_OUT_OF_DATE_KHR)
 	{

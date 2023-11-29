@@ -1,6 +1,7 @@
 #pragma once
 #include "HTH_device.hpp"
 #include "HTH_window.hpp"
+#include "HTH_descriptors.hpp"
 #include "HTH_renderer.hpp"
 #include "HTH_model.hpp"
 #include "HTH_game_object.hpp"
@@ -23,5 +24,7 @@ private:
 	HTH_window hth_window{WIDTH, HEIGHT, "Hello Vulkan!"};
 	HTH_device hth_device{ hth_window };
 	HTH_renderer hth_renderer{ hth_window,hth_device };
-	std::vector<HTH_game_object>gameObjects;
+
+	std::unique_ptr<HTH_descriptorPool>globalPool{};
+	HTH_game_object::Map gameObjects;
 };

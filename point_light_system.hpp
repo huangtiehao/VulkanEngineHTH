@@ -8,13 +8,13 @@
 
 #include<memory>
 #include<vector>
-class Simple_render_system {
+class Point_light_system {
 public:
-	Simple_render_system(HTH_device& device,VkRenderPass renderPass,VkDescriptorSetLayout globalSetLayout);
-	~Simple_render_system();
-	Simple_render_system(const Simple_render_system&) = delete;
-	Simple_render_system& operator=(const Simple_render_system&) = delete;
-	void renderGameObjects(HTH_frame_info& frameInfo);
+	Point_light_system(HTH_device& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout);
+	~Point_light_system();
+	Point_light_system(const Point_light_system&) = delete;
+	Point_light_system& operator=(const Point_light_system&) = delete;
+	void render(HTH_frame_info& frameInfo);
 private:
 	void createPipelineLayout(VkDescriptorSetLayout globalSetLayout);
 	void createPipeline(VkRenderPass renderPass);

@@ -91,6 +91,29 @@ void HTH_pipeline::defaultPipelineConfigInfo(PipelineConfigInfo& configInfo)
 	configInfo.dynamicStateInfo.dynamicStateCount =
 		static_cast<uint32_t>(configInfo.dynamicStateEnables.size());
 	configInfo.dynamicStateInfo.flags = 0;
+
+	configInfo.bindingDescriptions.resize(1);
+	configInfo.bindingDescriptions[0].binding = 0;
+	configInfo.bindingDescriptions[0].stride = sizeof(HTH_model::Vertex);
+	configInfo.bindingDescriptions[0].inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+
+	configInfo.attributeDescriptions.resize(4);
+	configInfo.attributeDescriptions[0].binding = 0;
+	configInfo.attributeDescriptions[0].location = 0;
+	configInfo.attributeDescriptions[0].format = VK_FORMAT_R32G32B32_SFLOAT;
+	configInfo.attributeDescriptions[0].offset = offsetof(HTH_model::Vertex, position);;
+	configInfo.attributeDescriptions[1].binding = 0;
+	configInfo.attributeDescriptions[1].location = 1;
+	configInfo.attributeDescriptions[1].format = VK_FORMAT_R32G32B32_SFLOAT;
+	configInfo.attributeDescriptions[1].offset = offsetof(HTH_model::Vertex, color);
+	configInfo.attributeDescriptions[2].binding = 0;
+	configInfo.attributeDescriptions[2].location = 2;
+	configInfo.attributeDescriptions[2].format = VK_FORMAT_R32G32B32_SFLOAT;
+	configInfo.attributeDescriptions[2].offset = offsetof(HTH_model::Vertex, normal);;
+	configInfo.attributeDescriptions[3].binding = 0;
+	configInfo.attributeDescriptions[3].location = 3;
+	configInfo.attributeDescriptions[3].format = VK_FORMAT_R32G32_SFLOAT;
+	configInfo.attributeDescriptions[3].offset = offsetof(HTH_model::Vertex, uv);
 }
 
 std::vector<char> HTH_pipeline::readFile(const std::string& filePath)
@@ -150,21 +173,9 @@ void HTH_pipeline::createGraphicsPipeline(const std::string& vertFilePath, const
 	shaderStages[1].pNext = nullptr;
 	shaderStages[1].pSpecializationInfo = nullptr;
 
-	std::vector<VkVertexInputBindingDescription> bindingDescriptions{};
-	std::vector<VkVertexInputAttributeDescription> attributeDescriptions{};
-	bindingDescriptions.resize(1);
-	bindingDescriptions[0].binding = 0;
-	bindingDescriptions[0].stride = sizeof(HTH_model::Vertex);
-	bindingDescriptions[0].inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
-	attributeDescriptions.resize(2);
-	attributeDescriptions[0].binding = 0;
-	attributeDescriptions[0].location = 0;
-	attributeDescriptions[0].format = VK_FORMAT_R32G32B32_SFLOAT;
-	attributeDescriptions[0].offset = 0;
-	attributeDescriptions[1].binding = 0;
-	attributeDescriptions[1].location = 1;
-	attributeDescriptions[1].format = VK_FORMAT_R32G32B32_SFLOAT;
-	attributeDescriptions[1].offset = offsetof(HTH_model::Vertex, color);
+	auto bindingDescriptions=configInfo.bindingDescriptions;
+	auto attributeDescriptions = configInfo.attributeDescriptions;
+
 
 	VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
 	vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
