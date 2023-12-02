@@ -5,6 +5,7 @@
 #include "HTH_model.hpp"
 
 struct PipelineConfigInfo {
+	PipelineConfigInfo() = default;
 	PipelineConfigInfo(const PipelineConfigInfo&) = delete; 
 	PipelineConfigInfo& operator=(const PipelineConfigInfo&) = delete;
 
@@ -33,6 +34,7 @@ public:
 	HTH_pipeline& operator=(const HTH_pipeline&) = delete;
 	void bind(VkCommandBuffer commandBuffer);
 	static void defaultPipelineConfigInfo(PipelineConfigInfo& configInfo);
+	static void enableAlphaBlending(PipelineConfigInfo& configInfo);
 private:
 	static std::vector<char> readFile(const std::string& filePath);
 	void createShaderModule(const std::vector<char>& code, VkShaderModule* shaderModule);

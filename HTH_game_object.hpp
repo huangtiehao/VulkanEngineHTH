@@ -10,6 +10,9 @@ struct TransformComponent {
 	glm::mat4 modelMatrix();
 	glm::mat3 normalMatrix();
 };
+struct PointLightComponent {
+	float lightIntensity = 1.0f;
+};
 class HTH_game_object {
 public:
 
@@ -25,12 +28,15 @@ public:
 		return id;
 	}
 
+	static HTH_game_object makePointLight(float intensity = 10.f, float radius = 0.1f, glm::vec3 color = glm::vec3(1.f));
+
 	HTH_game_object(const HTH_game_object&) = delete;
 	HTH_game_object& operator=(const HTH_game_object&) = delete;
 	HTH_game_object(HTH_game_object&&) = default;
 	HTH_game_object& operator=(HTH_game_object&&) = default;
 
 	std::shared_ptr<HTH_model>model{};
+	std::unique_ptr<PointLightComponent>pointLight = nullptr;
 	glm::vec3 color{};
 	TransformComponent transform{};
 private:

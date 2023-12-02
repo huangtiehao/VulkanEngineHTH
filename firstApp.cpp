@@ -13,13 +13,7 @@
 #include<glm/gtc/constants.hpp>
 #include<array>
 
-struct GlobalUbo {
-    glm::mat4 projection{ 1.f };
-    glm::mat4 view{ 1.f };
-    glm::vec4 ambientLightColor{ 1.0f,1.0f,1.0f,0.02f };
-    glm::vec4 lightPosition = glm::vec4{0.f,-0.5f,0.f,1.0f};
-    glm::vec4 lightColor{ 1.0f };
-};
+
 firstApp::firstApp()
 {
     globalPool = HTH_descriptorPool::Builder(hth_device)
@@ -86,6 +80,8 @@ void firstApp::run()
             GlobalUbo ubo{};
             ubo.projection = camera.getProjectionMatrix();
             ubo.view = camera.getViewMatrix();
+            ubo.inverseView = camera.getInverseViewMatrix();
+            pointLightSystem.updateFrameInfo(frameInfo, ubo);
             uboBuffers[frameIndex]->writeToBuffer(&ubo);
             uboBuffers[frameIndex]->flush();
 
@@ -106,14 +102,14 @@ void firstApp::loadGameObjects()
     std::shared_ptr<HTH_model>loaded_model1 = HTH_model::createModelFromFile(hth_device, "C:/visual_studio_source_code/VulkanEngineHTH/models/flat_vase.obj");
     auto gameObject1 = HTH_game_object::createObject();
     gameObject1.model = loaded_model1;
-    gameObject1.transform.translation = { 0.f,0.f,1.5f };
+    gameObject1.transform.translation = { 1.f,0.f,0.0f };
     gameObject1.transform.scale = glm::vec3{2.f,2.f,2.f };
     gameObjects.emplace(gameObject1.getId(),std::move(gameObject1));
 
     std::shared_ptr<HTH_model>loaded_model2 = HTH_model::createModelFromFile(hth_device, "C:/visual_studio_source_code/VulkanEngineHTH/models/flat_vase.obj");
     auto gameObject2 = HTH_game_object::createObject();
     gameObject2.model = loaded_model2;
-    gameObject2.transform.translation = { -1.0f,0.0f,1.0f };
+    gameObject2.transform.translation = { -1.0f,0.0f,0.0f };
     gameObject2.transform.scale = glm::vec3{ 2.f,2.f,2.f };
     gameObjects.emplace(gameObject2.getId(), std::move(gameObject2));
 
@@ -123,6 +119,26 @@ void firstApp::loadGameObjects()
     gameObject3.transform.translation = { 0.0f,0.0f,0.0f };
     gameObject3.transform.scale = glm::vec3{ 2.f,2.f,2.f };
     gameObjects.emplace(gameObject3.getId(), std::move(gameObject3));
+
+    std::vector<glm::vec3> lightColors{
+      {1.f, .1f, .1f},
+      {.1f, .1f, 1.f},
+      {.1f, 1.f, .1f},
+      {1.f, 1.f, .1f},
+      {.1f, 1.f, 1.f},
+      {1.f, 1.f, 1.f}  //
+    };
+    for (int i = 0; i < lightColors.size(); ++i)
+    {
+        auto pointLight = HTH_game_object::makePointLight(0.2f);
+        pointLight.color = lightColors[i];
+        auto rotateLight = glm::rotate(glm::mat4(1.f), 
+            (i * glm::two_pi<float>()) / lightColors.size(),
+            {0.f,-1.f,0.f});
+        pointLight.transform.translation = glm::vec3(rotateLight * glm::vec4(-1.f, -1.f, -1.f, 1.f));
+        gameObjects.emplace(pointLight.getId(), std::move(pointLight));
+    }
+
     /*
     std::vector<HTH_model::Vertex>vertices{
         {{-.5f, -.5f, -.5f}, {.9f, .9f, .9f}},
